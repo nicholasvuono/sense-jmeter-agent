@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -23,12 +24,14 @@ func main() {
 			Name:  "run",
 			Usage: "Runs the JMeter test (.jmx) that is specified",
 			Action: func(c *cli.Context) error {
+				fmt.Println("Running...")
 				err := exec.Command(
 					c.String("exec"),
 					"-n",
 					"-t "+c.String("jmx"),
 					"-l "+c.String("jtl"),
 				).Run()
+				fmt.Println("Complete.")
 				if err != nil {
 					return err
 				}
